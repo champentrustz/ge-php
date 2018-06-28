@@ -1,0 +1,160 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #FFFF66;
+	color:#000000;
+	font-family: Tahoma; 
+}
+
+table {
+	font-family: Tahoma; 
+	font-size: 12px;
+	color:#000000;
+}
+.bigone {
+	font-size:15px;
+	font-weight:bold;
+}
+.big{
+	font-size:11px;
+}
+.biggray {
+	font-size:11px;
+	color:#000000;
+	font-weight:bold;
+}
+.formtext {
+	color: #647F90;
+	padding: 1px 3px 0px 3px;
+	font-size: 14px;
+	border: 1px solid #647F90;
+}
+
+.rowNotice {
+	background-color: #f5f3de;
+	border: solid 1px #dddab5;
+	padding: 2px 2px 2px 20px;
+	background-image: url(../images/pin_green.gif);
+	background-repeat: no-repeat;
+	font-size: 12px;
+	clear: both; 
+}
+.textbox{
+	font-family: Tahoma;
+	font-size: 13px;
+	BORDER-LEFT: #333333 1px solid;
+	BORDER-BOTTOM: #333333 1px solid;
+	BORDER-RIGHT: #333333 1px solid;
+	BORDER-TOP: #333333 1px solid;
+}
+.alertred{
+	FONT-SIZE: 13px;
+	FONT-FAMILY: Tahoma;
+	color: #FF3C3C;
+}
+
+.rowTable {
+	background-color:#ffffff;
+	font-size: 12px;
+	color:#000000;
+	background-image:url(../images/line_01.gif); 
+	background-position:bottom; 
+	background-repeat:repeat-x;
+	height:10;
+}
+
+.left_bg { 
+	background-image:url(../images/left_03.gif); 
+	background-position:bottom; 
+	background-repeat:repeat-x; 
+	background-color:#e0eff5; 
+}
+
+.top_bg { 
+	background-image:url(../images/top_menu_01.gif); 
+	background-position:right; 
+	background-repeat:repeat-y; 
+	background-color:#E0EFF5;
+	padding: 2px 2px 2px 25px; 
+}
+
+.red_text { 
+	font-weight:bold;
+	color:#ff0000;
+}
+
+
+.top_menu_button {
+	padding: 0px 0px 0px 5px;
+	background-image: url(../images/vertical_line.gif);
+	background-repeat: no-repeat;
+	font-size: 12px;
+}
+
+.formbutton {
+	font-family: Tahoma; 
+	font-size: 12px;
+	background-color: #DEDEDE;
+	border: 1px solid #CCCCCC;
+}
+.headTable {
+	background-color: #72BB33;
+	font-size: 12px;
+	font-weight:bold;
+	color:#000000;
+}
+.headTable_mpt {
+	background-color: #72BB33;
+	font-size: 12px;
+	font-weight:bold;
+	color:#000000;
+}
+.rowone {
+	font-family: Tahoma, "Tahoma";
+	background-color: #FBFAC8;
+}
+.rowtwo {
+	font-family: Tahoma, "Tahoma";
+	background-color: #98D562;
+}
+.boxcheck {
+	font-family: Tahoma, "Tahoma";
+	background-color: #98D562;
+	border: 3px double #999999;
+	font-size: 30px;
+	text-align:center;
+}
+.orange_text { 
+	font-weight:bold;
+	color:#FF6600;
+}
+.orange_textcheck{ 
+	font-weight:bold;
+	color:#FF6600;
+	font-size: 20px;
+
+}
+
+.rowtree {
+	font-family: Tahoma, "Tahoma";
+	background-color: #d2fdd1;
+}
+
+.keyword_list{ 
+	background-position:right; 
+	background-repeat:repeat-y; 
+	background-color:#66CC99;
+	padding: 2px 2px 2px 25px; 
+}
+.Submit {
+	font-family: "Tahoma";
+	font-size: 13px;
+	font-weight: bold;
+	text-align: center;
+	color: #000000;
+	background: #fefefe url(../images/color_btn.jpg) repeat-x;
+	border: 3px double #999999;
+	cursor: hand;
+	}
