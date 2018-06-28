@@ -126,10 +126,11 @@ $group_id = $_GET['group_id'];
 
 
         var showStudent =null;
+        let numStudent = 0;
 
         if(dataAll.length > 0){
             dataAll.forEach(function(student,index) {
-
+                numStudent++;
                 var scoreStudent = 0;
 
                 dataAttend.forEach(function(dataAttend) {
@@ -173,6 +174,7 @@ $group_id = $_GET['group_id'];
 
             });
             $( "#show-student" ).html(showStudent);
+            $( "#num-student" ).html('<input type="hidden" value='+numStudent+'>');
         }
 
 
@@ -197,10 +199,25 @@ $group_id = $_GET['group_id'];
     <div class="col-md-12">
 
         <br/>
+        <div class="col-md-12 text-right">
+
+            <form action="function-send-email.php" method="post">
+
+            <div id="num-student">
+
+            </div>
+
+        <button class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span> ส่งอีเมล</button>
+            <br/>
+            <br/>
+            </form>
+        </div>
+
 
 
 
         <table class="table table-bordered" cellspacing="0" id="table-student" ">
+
             <thead>
             <tr>
                 <th class="text-center">ที่</th>
