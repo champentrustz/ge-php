@@ -224,7 +224,7 @@ if($monthdis>=8  && $monthdis <=12){
                                             $sumX = $sumX + $fetch_score['score'];
                                         }
                                         $avgX = $sumX / $n;
-
+                                        $avgX2digit = number_format((float)$avgX, 2, '.', '');
                                         $sumAvg = $sumAvg + $avgX;
                                         $percent = ($avgX *100.00) / 5;
                                         $sumXiXbar = 0;
@@ -269,13 +269,13 @@ if($monthdis>=8  && $monthdis <=12){
 
                                             ?></td>
                                         <td class="text-center"><?php
-                                            if($percent >= 80){
+                                            if($avgX2digit >= 4.51){
                                                 ?>
                                                 มากที่สุด
 
                                                 <?php
                                             }
-                                            elseif($percent >=60 && $percent < 80){
+                                            elseif($avgX2digit >=3.51 && $avgX2digit <= 4.50){
 
                                                 ?>
 
@@ -284,7 +284,7 @@ if($monthdis>=8  && $monthdis <=12){
                                                 <?php
 
                                             }
-                                            elseif($percent >=40 && $percent < 60){
+                                            elseif($avgX2digit >=2.51 && $avgX2digit <= 3.50){
 
                                                 ?>
 
@@ -292,7 +292,7 @@ if($monthdis>=8  && $monthdis <=12){
                                                 <?php
 
                                             }
-                                            elseif($percent >=20 && $percent < 40){
+                                            elseif($avgX2digit >=1.51 && $avgX2digit <= 2.50){
 
                                                 ?>
 
@@ -300,11 +300,11 @@ if($monthdis>=8  && $monthdis <=12){
                                                 <?php
 
                                             }
-                                            elseif($percent < 20){
+                                            elseif($avgX2digit >=1.00 && $avgX2digit <= 1.50){
 
                                                 ?>
 
-                                                น้อยที่สุด
+                                                ไม่มีความพึงพอใจ
                                                 <?php
 
                                             }
@@ -336,6 +336,8 @@ if($monthdis>=8  && $monthdis <=12){
                         }
 
                         $avg = $sumAvg / $i;
+
+                        $avg2digit = number_format((float)$avg, 2, '.', '');
 
                         $percentTopic = ($avg * 100) / 5 ;
 
@@ -375,13 +377,13 @@ if($monthdis>=8  && $monthdis <=12){
 
                                 ?></td>
                             <td class="text-center"><?php
-                                if($percentTopic >= 80){
+                                if($avg2digit >= 4.51){
                                     ?>
                                     มากที่สุด
 
                                     <?php
                                 }
-                                elseif($percentTopic >=60 && $percentTopic < 80){
+                                elseif($avg2digit >=3.51 && $avg2digit <= 4.50){
 
                                     ?>
 
@@ -390,7 +392,7 @@ if($monthdis>=8  && $monthdis <=12){
                                     <?php
 
                                 }
-                                elseif($percentTopic >=40 && $percentTopic < 60){
+                                elseif($avg2digit >=2.51 && $avg2digit <= 3.50){
 
                                     ?>
 
@@ -398,7 +400,7 @@ if($monthdis>=8  && $monthdis <=12){
                                     <?php
 
                                 }
-                                elseif($percentTopic >=20 && $percentTopic < 40){
+                                elseif($avg2digit >=1.51 && $avg2digit <= 2.50){
 
                                     ?>
 
@@ -406,11 +408,11 @@ if($monthdis>=8  && $monthdis <=12){
                                     <?php
 
                                 }
-                                elseif($percentTopic < 20){
+                                elseif($avg2digit >=1.00 && $avg2digit <= 1.50){
 
                                     ?>
 
-                                    น้อยที่สุด
+                                    ไม่มีความพึงพอใจ
                                     <?php
 
                                 }
