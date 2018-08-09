@@ -52,9 +52,12 @@ for($j = 0 ; $j<$numrow ; $j++){
 
 }
 
-$insert_survey_remark = "INSERT INTO survey_remark(id,survey_course_id, question_number, remark, semester , year , student_gender, student_first_name, student_last_name, student_id, course_id, createdAt, updatedAt)VALUES (NULL,'" . $survey_course_id . "', '1', '" . $remark . "', '" . $semester . "' , '" . $year . "', '" . $student_gender . "', '" . $first_name . "', '" . $last_name . "', '" . $student_id . "', '" . $fetch_survey_course['course_id'] . "', '" . $date->format('Y-m-d H:i:s') . "','" . $date->format('Y-m-d H:i:s') . "')";
-$conn->query($insert_survey_remark);
+if($remark != '') {
 
+    $insert_survey_remark = "INSERT INTO survey_remark(id,survey_course_id, question_number, remark, semester , year , student_gender, student_first_name, student_last_name, student_id, course_id, createdAt, updatedAt)VALUES (NULL,'" . $survey_course_id . "', '1', '" . $remark . "', '" . $semester . "' , '" . $year . "', '" . $student_gender . "', '" . $first_name . "', '" . $last_name . "', '" . $student_id . "', '" . $fetch_survey_course['course_id'] . "', '" . $date->format('Y-m-d H:i:s') . "','" . $date->format('Y-m-d H:i:s') . "')";
+    $conn->query($insert_survey_remark);
+
+}
 
 
 

@@ -642,7 +642,7 @@ $course_name = null;
                         <tr>
                             <td class="text-center"><?php print $num?></td>
                             <td class="text-center"><?php print $remark['student_id']?></td>
-                            <td class="text-center"><?php print $remark['student_first_name']?> <?php print $fetch_comment['student_last_name']?></td>
+                            <td class="text-center"><?php print $remark['student_first_name']?> <?php print $remark['student_last_name']?></td>
                             <td class="text-center"><?php print $remark['remark']?></td>
                         </tr>
                         <?php

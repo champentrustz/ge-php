@@ -136,6 +136,9 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                     <strong>วิชา <?php print $course_id?> <?php print $course_name?></strong>
                 </p>
                 <p class="text-center">
+                    <strong>ภาคเรียนที่ <?php print $semester?>/<?php print $year?></strong>
+                </p>
+                <p class="text-center">
                     <strong>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์</strong>
                 </p>
 
@@ -145,9 +148,6 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                 <table class="table table-bordered" cellspacing="0" style="font-size: 12px">
                     <thead>
 
-                    <th class="text-center">หัวข้อ</th>
-                    <th class="text-center">x&#772;</th>
-                    <th class="text-center">S.D.</th>
                     <th class="text-center">ร้อยละ</th>
                     <th class="text-center">ระดับความพึงพอใจ</th>
                     </thead>
@@ -165,7 +165,7 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                     $i = 0;
                     while($fetch_test=mysqli_fetch_assoc($query_test)){
 
-                        $survey_question_sql="SELECT * FROM survey_question WHERE survey_id = '".$survey_id."' AND topic_id = '".$fetch_test['topic_id']."' and question != ''";
+                        $survey_question_sql="SELECT * FROM survey_question WHERE survey_id = '".$survey_id."' AND topic_id = '".$fetch_test['topic_id']."'";
                         $query_survey_question=mysqli_query($conn,$survey_question_sql);
                         $j = 0;
                         $sumAvg = 0;
@@ -187,6 +187,7 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
 
 
                                         $avgX = $sumX[$i] / $n[$i];
+                                        $avgX2digit = number_format((float)$avgX, 2, '.', '');
 
                                         $sumAvg = $sumAvg + $avgX;
                                         $percent = ($avgX *100.00) / 5;
@@ -234,13 +235,13 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
 
                                             ?></td>
                                         <td class="text-center"><?php
-                                            if($percent >= 80){
+                                            if($avgX2digit >= 4.51){
                                                 ?>
                                                 มากที่สุด
 
                                                 <?php
                                             }
-                                            elseif($percent >=60 && $percent < 80){
+                                            elseif($avgX2digit >=3.51 && $avgX2digit <= 4.50){
 
                                                 ?>
 
@@ -249,7 +250,7 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                                                 <?php
 
                                             }
-                                            elseif($percent >=40 && $percent < 60){
+                                            elseif($avgX2digit >=2.51 && $avgX2digit <= 3.50){
 
                                                 ?>
 
@@ -257,7 +258,7 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                                                 <?php
 
                                             }
-                                            elseif($percent >=20 && $percent < 40){
+                                            elseif($avgX2digit >=1.51 && $avgX2digit <= 2.50){
 
                                                 ?>
 
@@ -265,11 +266,11 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                                                 <?php
 
                                             }
-                                            elseif($percent < 20){
+                                            elseif($avgX2digit >=1.00 && $avgX2digit <= 1.50){
 
                                                 ?>
 
-                                                น้อยที่สุด
+                                                ไม่มีความพึงพอใจ
                                                 <?php
 
                                             }
@@ -302,6 +303,8 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                         }
 
                         $avg = $sumAvg / $j;
+
+                        $avg2digit = number_format((float)$avg, 2, '.', '');
 
                         $percentTopic = ($avg * 100) / 5 ;
 
@@ -341,13 +344,13 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
 
                                 ?></td>
                             <td class="text-center"><?php
-                                if($percentTopic >= 80){
+                                if($avg2digit >= 4.51){
                                     ?>
                                     มากที่สุด
 
                                     <?php
                                 }
-                                elseif($percentTopic >=60 && $percentTopic < 80){
+                                elseif($avg2digit >=3.51 && $avg2digit <= 4.50){
 
                                     ?>
 
@@ -356,7 +359,7 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                                     <?php
 
                                 }
-                                elseif($percentTopic >=40 && $percentTopic < 60){
+                                elseif($avg2digit >=2.51 && $avg2digit <= 3.50){
 
                                     ?>
 
@@ -364,7 +367,7 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                                     <?php
 
                                 }
-                                elseif($percentTopic >=20 && $percentTopic < 40){
+                                elseif($avg2digit >=1.51 && $avg2digit <= 2.50){
 
                                     ?>
 
@@ -372,11 +375,11 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                                     <?php
 
                                 }
-                                elseif($percentTopic < 20){
+                                elseif($avg2digit >=1.00 && $avg2digit <= 1.50){
 
                                     ?>
 
-                                    น้อยที่สุด
+                                    ไม่มีความพึงพอใจ
                                     <?php
 
                                 }
@@ -409,6 +412,178 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
 
 
                 </table>
+
+
+
+
+
+                </div>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+
+
+
+                    <br>
+                    <br>
+
+                    <!--            <a class="btn btn-success" href="survey-excel-graph.php?survey_id=--><?php //print $survey_id?><!--&course_id=--><?php //print $course_id?><!--&group_id=--><?php //print $group_id?><!--"><span class="glyphicon glyphicon-download-alt"></span> ดาวน์โหลดไฟล์ excel</a>-->
+                    <br>
+                    <br>
+
+                    <?php
+
+                    $sql_question_topic="SELECT * FROM survey_question WHERE survey_id = '".$survey_id."' and type = 'TOPIC'";
+                    $query_question_topic=mysqli_query($conn,$sql_question_topic);
+                    $numJS = 0;
+
+                    while($fetch_question_topic=mysqli_fetch_assoc($query_question_topic)) {
+                        $numJS++;
+                        ?>
+
+                        <div class="col-md-8" style="margin-left: 100px;">
+                            <canvas  id="myChart<?php print $numJS?>"></canvas>
+                            <br/>
+                            <br/>
+                        </div>
+                        <br/>
+                        <br/>
+
+
+                        <?php
+                    }
+
+                    ?>
+
+                    <br/>
+
+                </div>
+
+                <div id="menu3" class="tab-pane fade">
+
+                    <br>
+                    <br>
+
+                    <div class="col-md-12">
+                        <div class="text-right">
+                            <a class="btn btn-success" href="course-summary-score-excel.php?survey_name=<?php print $survey_name?>&course_id=<?php print $course_id?>&semester=<?php print $semester?>&year=<?php print $year?>"><span class="glyphicon glyphicon-download-alt"></span> ดาวน์โหลดไฟล์ excel</a>
+
+                        </div>
+                        <br>
+                        <br>
+
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered " style="font-size: 12px">
+                                <thead>
+
+                                <th class="text-center ">ที่</th>
+                                <th class="text-center ">หัวข้อ</th>
+                                <?php
+
+                                for ($i = 1 ; $i <= $sumN ; $i++){
+
+                                    ?>
+
+                                    <th class="text-center"><?php print $i?></th>
+
+                                    <?php
+
+                                }
+
+                                ?>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $sql_question="SELECT * FROM survey_question WHERE survey_id = '".$survey_id."' and question != ''";
+                                $query_question=mysqli_query($conn,$sql_question);
+                                $numQuestion = 0;
+                                $numChoice = 0;
+                                while($fetch_question=mysqli_fetch_assoc($query_question)){
+                                    if($fetch_question['type'] == 'QUESTION'){
+                                        $numQuestion++;
+                                        ?>
+                                        <tr>
+                                        <td class="text-center"><?php print $numQuestion?></td>
+                                        <td><?php print $fetch_question['question']?></td>
+
+                                        <?php
+                                        $numChoice++;
+
+                                        for($j=0 ;$j<$sumN; $j++){
+
+
+
+
+                                            ?>
+                                            <td class="text-center" data-container="body" data-toggle="tooltip"
+                                                title="<?php print $student_name[$numChoice-1][$j]?> <?php print $student_last_name[$numChoice-1][$j]?>"><?php print $x[$numChoice-1][$j]?></td>
+
+                                            <?php
+
+                                        }
+                                    }
+                                    elseif($fetch_question['type'] == 'TOPIC'){
+                                        $numQuestion=0;
+                                    }
+
+                                    ?>
+                                    </tr>
+                                    <?php
+
+                                }
+
+
+                                ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="menu4" class="tab-pane fade">
+
+                    <br>
+                    <br>
+                    <div class="col-md-12">
+
+                        <div class="text-right">
+
+                            <a class="btn btn-success" href="course-summary-remark-excel.php?survey_name=<?php print $survey_name?>&course_id=<?php print $course_id?>&semester=<?php print $semester?>&year=<?php print $year?>"><span class="glyphicon glyphicon-download-alt"></span> ดาวน์โหลดไฟล์ excel</a>
+
+                        </div>
+                        <br>
+                        <br>
+
+                        <table class="table table-bordered" cellspacing="0" style="font-size: 12px" id="data-table">
+                            <thead>
+
+                            <th class="text-center">ที่</th>
+                            <th class="text-center">รหัสนักศึกษา</th>
+                            <th class="text-center">ชื่อ - นามสกุล</th>
+                            <th class="text-center">ข้อคิดเห็น/ข้อเสนอแนะ</th>
+                            </thead>
+                            <tbody>
+
+                            <?php
+
+                            $num = 0;
+                            foreach ($remarks as $remark){
+
+                                $num++;
+                                ?>
+                                <tr>
+                                    <td class="text-center"><?php print $num?></td>
+                                    <td class="text-center"><?php print $remark['student_id']?></td>
+                                    <td class="text-center"><?php print $remark['student_first_name']?> <?php print $remark['student_last_name']?></td>
+                                    <td class="text-center"><?php print $remark['remark']?></td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+
+                            </tbody>
+                        </table>
 
 
 </body>

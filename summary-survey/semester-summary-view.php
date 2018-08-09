@@ -623,8 +623,6 @@ $remarks = array();
 
                     <?php
 
-                    $comment_sql="SELECT * FROM survey_remark WHERE survey_course_id = '".$fetch_survey_course['id']."'";
-                    $query_comment=mysqli_query($conn,$comment_sql);
                     $num = 0;
                     foreach ($remarks as $remark){
 
@@ -633,7 +631,7 @@ $remarks = array();
                         <tr>
                             <td class="text-center"><?php print $num?></td>
                             <td class="text-center"><?php print $remark['student_id']?></td>
-                            <td class="text-center"><?php print $remark['student_first_name']?> <?php print $fetch_comment['student_last_name']?></td>
+                            <td class="text-center"><?php print $remark['student_first_name']?> <?php print $remark['student_last_name']?></td>
                             <td class="text-center"><?php print $remark['remark']?></td>
                         </tr>
                         <?php

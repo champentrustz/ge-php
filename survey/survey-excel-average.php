@@ -1,6 +1,6 @@
 <?php
 
-$survey_id = $_REQUEST['survey_id'];
+$survey_course_id = $_REQUEST['survey_course_id'];
 $course_id = $_REQUEST['course_id'];
 $group_id = $_REQUEST['group_id'];
 $semester = $_REQUEST['semester'];
@@ -28,9 +28,9 @@ if ($conn->connect_error) {
 
 
 
-$survey_course_sql="SELECT * FROM survey_course WHERE course_id = '".$course_id."' and group_id = '".$group_id."' and deletedAt IS NULL LIMIT 1";
+$survey_course_sql="SELECT * FROM survey_course WHERE id = '".$survey_course_id."'";
 $query_survey_course=mysqli_query($conn,$survey_course_sql);
-$fetch_survey_course = mysqli_fetch_assoc($query_survey_course)
+$fetch_survey_course = mysqli_fetch_assoc($query_survey_course);
 
 
 ?>
@@ -114,29 +114,25 @@ if($monthdis>=8  && $monthdis <=12){
 
 
 
-<div class="container">
 
 
+    <p class="text-center">
+        <strong>ผลสรุปประเมินความพึงพอใจผู้สอนหมวดวิชาศึกษาทั่วไปปีการศึกษา <?php print $fetch_survey_course['semester']?>/<?php print $fetch_survey_course['year']?></strong>
+    </p>
+    <p class="text-center">
+        <strong>วิชา <?php print $course_id?> <?php print $fetch_survey_course['name']?> กลุ่มที่ <?php print $fetch_survey_course['group_name']?></strong>
+    </p>
+    <p class="text-center">
+        <strong>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์</strong>
+    </p>
+    <p class="text-center">
+        <strong>วันที่  <?php print $day?>  เดือน  <?php print $ThMonth[$months]?>  พ.ศ.  <?php print $years?></strong>
+    </p>
+
+    <br>
 
 
-
-
-                <p class="text-center">
-                    <strong>ผลสรุปประเมินความพึงพอใจผู้สอนหมวดวิชาศึกษาทั่วไปปีการศึกษา <?php print $mdis?>/<?php print $years?></strong>
-                </p>
-                <p class="text-center">
-                    <strong>วิชา <?php print $course_id?> <?php print $fetch_survey_course['name']?></strong>
-                </p>
-                <p class="text-center">
-                    <strong>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์</strong>
-                </p>
-                <p class="text-center">
-                    <strong>วันที่  <?php print $day?>  เดือน  <?php print $ThMonth[$months]?>  พ.ศ.  <?php print $years?></strong>
-                </p>
-
-                <br>
-
-    <table class="table" cellspacing="0" style="font-size: 12px">
+    <table class="table table-bordered" cellspacing="0" style="font-size: 12px">
         <thead>
 
         <th class="text-center">หัวข้อ</th>
@@ -157,7 +153,7 @@ if($monthdis>=8  && $monthdis <=12){
         $avg = 0;
         while($fetch_test=mysqli_fetch_assoc($query_test)){
 
-            $survey_question_sql="SELECT * FROM survey_question WHERE survey_id = '".$fetch_survey_course['survey_id']."' AND topic_id = '".$fetch_test['topic_id']."' and question != ''";
+            $survey_question_sql="SELECT * FROM survey_question WHERE survey_id = '".$fetch_survey_course['survey_id']."' AND topic_id = '".$fetch_test['topic_id']."'";
             $query_survey_question=mysqli_query($conn,$survey_question_sql);
             $i = 0;
             $sumAvg = 0;
@@ -187,7 +183,7 @@ if($monthdis>=8  && $monthdis <=12){
                                 $sumX = $sumX + $fetch_score['score'];
                             }
                             $avgX = $sumX / $n;
-
+                            $avgX2digit = number_format((float)$avgX, 2, '.', '');
                             $sumAvg = $sumAvg + $avgX;
                             $percent = ($avgX *100.00) / 5;
                             $sumXiXbar = 0;
@@ -232,13 +228,13 @@ if($monthdis>=8  && $monthdis <=12){
 
                                 ?></td>
                             <td class="text-center"><?php
-                                if($percent >= 80){
+                                if($avgX2digit >= 4.51){
                                     ?>
                                     มากที่สุด
 
                                     <?php
                                 }
-                                elseif($percent >=60 && $percent < 80){
+                                elseif($avgX2digit >=3.51 && $avgX2digit <= 4.50){
 
                                     ?>
 
@@ -247,7 +243,7 @@ if($monthdis>=8  && $monthdis <=12){
                                     <?php
 
                                 }
-                                elseif($percent >=40 && $percent < 60){
+                                elseif($avgX2digit >=2.51 && $avgX2digit <= 3.50){
 
                                     ?>
 
@@ -255,7 +251,7 @@ if($monthdis>=8  && $monthdis <=12){
                                     <?php
 
                                 }
-                                elseif($percent >=20 && $percent < 40){
+                                elseif($avgX2digit >=1.51 && $avgX2digit <= 2.50){
 
                                     ?>
 
@@ -263,11 +259,11 @@ if($monthdis>=8  && $monthdis <=12){
                                     <?php
 
                                 }
-                                elseif($percent < 20){
+                                elseif($avgX2digit >=1.00 && $avgX2digit <= 1.50){
 
                                     ?>
 
-                                    น้อยที่สุด
+                                    ไม่มีความพึงพอใจ
                                     <?php
 
                                 }
@@ -299,6 +295,8 @@ if($monthdis>=8  && $monthdis <=12){
             }
 
             $avg = $sumAvg / $i;
+
+            $avg2digit = number_format((float)$avg, 2, '.', '');
 
             $percentTopic = ($avg * 100) / 5 ;
 
@@ -338,13 +336,13 @@ if($monthdis>=8  && $monthdis <=12){
 
                     ?></td>
                 <td class="text-center"><?php
-                    if($percentTopic >= 80){
+                    if($avg2digit >= 4.51){
                         ?>
                         มากที่สุด
 
                         <?php
                     }
-                    elseif($percentTopic >=60 && $percentTopic < 80){
+                    elseif($avg2digit >=3.51 && $avg2digit <= 4.50){
 
                         ?>
 
@@ -353,7 +351,7 @@ if($monthdis>=8  && $monthdis <=12){
                         <?php
 
                     }
-                    elseif($percentTopic >=40 && $percentTopic < 60){
+                    elseif($avg2digit >=2.51 && $avg2digit <= 3.50){
 
                         ?>
 
@@ -361,7 +359,7 @@ if($monthdis>=8  && $monthdis <=12){
                         <?php
 
                     }
-                    elseif($percentTopic >=20 && $percentTopic < 40){
+                    elseif($avg2digit >=1.51 && $avg2digit <= 2.50){
 
                         ?>
 
@@ -369,11 +367,11 @@ if($monthdis>=8  && $monthdis <=12){
                         <?php
 
                     }
-                    elseif($percentTopic < 20){
+                    elseif($avg2digit >=1.00 && $avg2digit <= 1.50){
 
                         ?>
 
-                        น้อยที่สุด
+                        ไม่มีความพึงพอใจ
                         <?php
 
                     }
@@ -406,15 +404,6 @@ if($monthdis>=8  && $monthdis <=12){
 
 
     </table>
-
-            </div>
-
-
-
-
-
-
-
 
 
 

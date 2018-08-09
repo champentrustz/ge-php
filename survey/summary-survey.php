@@ -153,7 +153,7 @@ if($monthdis>=8  && $monthdis <=12){
             <div class="col-md-12 text-right">
 
 
-                <a class="btn btn-success" href="survey-excel-average.php?survey_id=<?php print $survey_id?>&course_id=<?php print $course_id?>&group_id=<?php print $group_id?>&semester=<?php print $semester?>&year=<?php print $year?>"><span class="glyphicon glyphicon-download-alt"></span> ดาวน์โหลดไฟล์ excel</a>
+                <a class="btn btn-success" href="survey-excel-average.php?survey_course_id=<?php print $survey_course_id?>&course_id=<?php print $course_id?>&group_id=<?php print $group_id?>&semester=<?php print $semester?>&year=<?php print $year?>"><span class="glyphicon glyphicon-download-alt"></span> ดาวน์โหลดไฟล์ excel</a>
                 <br>
                 <br>
 
@@ -166,9 +166,7 @@ if($monthdis>=8  && $monthdis <=12){
                 <p class="text-center">
                     <strong>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์</strong>
                 </p>
-                <p class="text-center">
-                    <strong>วันที่  <?php print $day?>  เดือน  <?php print $ThMonth[$months]?>  พ.ศ.  <?php print $years?></strong>
-                </p>
+
 
                 <br>
 
@@ -491,7 +489,7 @@ if($monthdis>=8  && $monthdis <=12){
             <br>
 
             <div class="col-md-12 text-right">
-            <a class="btn btn-success " href="survey-excel-score.php?survey_id=<?php print $survey_id?>&course_id=<?php print $course_id?>&group_id=<?php print $group_id?>&semester=<?php print $semester?>&year=<?php print $year?>"><span class="glyphicon glyphicon-download-alt"></span> ดาวน์โหลดไฟล์ excel</a>
+            <a class="btn btn-success " href="survey-excel-score.php?survey_course_id=<?php print $survey_course_id?>&course_id=<?php print $course_id?>&group_id=<?php print $group_id?>&semester=<?php print $semester?>&year=<?php print $year?>"><span class="glyphicon glyphicon-download-alt"></span> ดาวน์โหลดไฟล์ excel</a>
                 <br>
                 <br>
 
@@ -560,7 +558,7 @@ if($monthdis>=8  && $monthdis <=12){
             <br>
             <div class="col-md-12 text-right">
 
-                <a class="btn btn-success" href="survey-excel-remark.php?survey_id=<?php print $survey_id?>&course_id=<?php print $course_id?>&group_id=<?php print $group_id?>&semester=<?php print $semester?>&year=<?php print $year?>"><span class="glyphicon glyphicon-download-alt"></span> ดาวน์โหลดไฟล์ excel</a>
+                <a class="btn btn-success" href="survey-excel-remark.php?survey_course_id=<?php print $survey_course_id?>&course_id=<?php print $course_id?>&group_id=<?php print $group_id?>&semester=<?php print $semester?>&year=<?php print $year?>"><span class="glyphicon glyphicon-download-alt"></span> ดาวน์โหลดไฟล์ excel</a>
                 <br>
                 <br>
 
@@ -576,7 +574,7 @@ if($monthdis>=8  && $monthdis <=12){
 
             <?php
 
-            $comment_sql="SELECT * FROM survey_remark WHERE survey_course_id = '".$fetch_survey_course['id']."'";
+            $comment_sql="SELECT * FROM survey_remark WHERE survey_course_id = '".$fetch_survey_course['id']."' and year = '".$year."' and semester = '".$semester."'";
             $query_comment=mysqli_query($conn,$comment_sql);
             $num = 0;
             while($fetch_comment=mysqli_fetch_assoc($query_comment)){

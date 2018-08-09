@@ -16,7 +16,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$survey_id = $_REQUEST['survey_id'];
+$survey_course_id = $_REQUEST['survey_course_id'];
 $course_id = $_REQUEST['course_id'];
 $group_id = $_REQUEST['group_id'];
 $semester = $_REQUEST['semester'];
@@ -27,9 +27,9 @@ $nameExcel = 'score'.$course_id.'-'.$group_id.'-'.$semester.'-'.$year.'.xls';
 header("Content-Disposition: attachment; filename=$nameExcel");
 header("Content-Type: application/xls");
 
-$survey_course_sql="SELECT * FROM survey_course WHERE course_id = '".$course_id."' and group_id = '".$group_id."' and deletedAt IS NULL LIMIT 1";
+$survey_course_sql="SELECT * FROM survey_course WHERE id = '".$survey_course_id."'";
 $query_survey_course=mysqli_query($conn,$survey_course_sql);
-$fetch_survey_course = mysqli_fetch_assoc($query_survey_course)
+$fetch_survey_course = mysqli_fetch_assoc($query_survey_course);
 
 
 ?>
@@ -151,7 +151,7 @@ if($monthdis>=8  && $monthdis <=12){
                     </thead>
                     <tbody>
                     <?php
-                    $sql_question="SELECT * FROM survey_question WHERE survey_id = '".$fetch_survey_course['survey_id']."'";
+                    $sql_question="SELECT * FROM survey_question WHERE survey_id = '".$fetch_survey_course['survey_id']."' and question != ''";
                     $query_question=mysqli_query($conn,$sql_question);
                     $numQuestion = 0;
                     while($fetch_question=mysqli_fetch_assoc($query_question)){

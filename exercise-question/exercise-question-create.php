@@ -102,88 +102,88 @@ $fetch_exercise=mysqli_fetch_assoc($query_exercise);
 		?>
 
 		<div class="col-md-6">
-		<div class="panel panel-default">
-  <div class="panel-heading">คำถามข้อที่ <?php print $i?></div>
-  <div class="panel-body">
+            <div class="panel panel-default">
+      <div class="panel-heading">คำถามข้อที่ <?php print $i?></div>
+      <div class="panel-body">
 
-      <div class="form-horizontal">
-          <div class="form-group">
-              <label class="control-label col-md-2" for="question">คำถาม</label>
-              <div class="col-md-10">
-				<input type="text" class="form-control" name="question[]" id="question" required>
+          <div class="form-horizontal">
+              <div class="form-group">
+                  <label class="control-label col-md-2" for="question">คำถาม</label>
+                  <div class="col-md-10">
+                    <input type="text" class="form-control" name="question[]" id="question" required>
+                  </div>
+
               </div>
-
-          </div>
-		</div>
-
-
-      <div class="form-horizontal">
-          <div class="form-group">
-              <label  class="control-label col-md-2" for="score">คะแนน</label>
-              <div class="col-md-4">
-              <input type="number" min=1 class="form-control" name="score[]" id="score" value="1" step="0.1" required>
-              </div>
-          </div>
-      </div>
-
-
-		<div class="form-horizontal">
-            <div class="form-group">
-                <label for="choiceA" class="control-label col-md-2">ก.</label>
-                <div class="col-md-10">
-				<input type="text" class="form-control" name="choiceA[]" id="choiceA" required>
-                </div>
-
             </div>
-		</div>
 
-      <div class="form-horizontal">
-          <div class="form-group">
-              <label for="choiceB" class="control-label col-md-2">ข.</label>
-              <div class="col-md-10">
-                  <input type="text" class="form-control" name="choiceB[]" id="choiceB" required>
+
+          <div class="form-horizontal">
+              <div class="form-group">
+                  <label  class="control-label col-md-2" for="score">คะแนน</label>
+                  <div class="col-md-4">
+                  <input type="number" min=1 class="form-control" name="score[]" id="score" value="1" step="0.1" required>
+                  </div>
               </div>
           </div>
-      </div>
 
-      <div class="form-horizontal">
-          <div class="form-group">
-              <label for="choiceC" class="control-label col-md-2">ค.</label>
-              <div class="col-md-10">
-              <input type="text" class="form-control" name="choiceC[]" id="choiceC"  required>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="choiceA" class="control-label col-md-2">ก.</label>
+                    <div class="col-md-10">
+                    <input type="text" class="form-control" name="choiceA[]" id="choiceA" required>
+                    </div>
+
+                </div>
+            </div>
+
+          <div class="form-horizontal">
+              <div class="form-group">
+                  <label for="choiceB" class="control-label col-md-2">ข.</label>
+                  <div class="col-md-10">
+                      <input type="text" class="form-control" name="choiceB[]" id="choiceB" required>
+                  </div>
               </div>
           </div>
-      </div>
 
-      <div class="form-horizontal">
-          <div class="form-group">
-              <label for="choiceD" class="control-label col-md-2">ง.</label>
-              <div class="col-md-10">
-                  <input type="text" class="form-control" name="choiceD[]" id="choiceD" required>
+          <div class="form-horizontal">
+              <div class="form-group">
+                  <label for="choiceC" class="control-label col-md-2">ค.</label>
+                  <div class="col-md-10">
+                  <input type="text" class="form-control" name="choiceC[]" id="choiceC"  required>
+                  </div>
               </div>
           </div>
-      </div>
 
-
-
-      <div class="form-horizontal">
-          <div class="form-group">
-			<div class="col-md-4 col-md-offset-8">
-				<select name="answer[]" class="form-control" required>
-					<option value = "">*คำตอบ</option>
-					<option value="1" >ก.</option>
-					<option value="2" >ข.</option>
-					<option value="3" >ค.</option>
-					<option value="4" >ง.</option>
-			 </select>
-			</div>
+          <div class="form-horizontal">
+              <div class="form-group">
+                  <label for="choiceD" class="control-label col-md-2">ง.</label>
+                  <div class="col-md-10">
+                      <input type="text" class="form-control" name="choiceD[]" id="choiceD" required>
+                  </div>
+              </div>
           </div>
-		</div>
 
 
 
-  </div>
-</div>
+          <div class="form-horizontal">
+              <div class="form-group">
+                <div class="col-md-4 col-md-offset-8">
+                    <select name="answer[]" class="form-control" required>
+                        <option value = "">*คำตอบ</option>
+                        <option value="1" >ก.</option>
+                        <option value="2" >ข.</option>
+                        <option value="3" >ค.</option>
+                        <option value="4" >ง.</option>
+                 </select>
+                </div>
+              </div>
+            </div>
+
+
+
+      </div>
+    </div>
 </div>
 
 		<?php

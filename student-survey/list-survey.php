@@ -103,6 +103,7 @@ else{
         <thead>
         <tr>
             <th class="text-center">ที่</th>
+            <th class="text-center">ชื่อแบบประเมิน</th>
             <th class="text-center">ชื่ออาจารย์ / วิทยากร</th>
             <th class="text-center"><span class="glyphicon glyphicon-cog"></span></th>
         </tr>
@@ -118,7 +119,7 @@ else{
 
             while ($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)) {
 
-                $survey__sql="SELECT * FROM survey WHERE id = '".$fetch_survey_course['survey_id']."' and deletedAt is NULL";
+                $survey__sql="SELECT * FROM survey WHERE id = '".$fetch_survey_course['survey_id']."' and topic NOT LIKE '%[copy]%' and deletedAt is NULL";
                 $query_survey=mysqli_query($conn,$survey__sql);
                 while ($fetch_survey = mysqli_fetch_assoc($query_survey)) {
 
@@ -126,14 +127,13 @@ else{
                     $survey_score_sql="SELECT * FROM survey_score WHERE survey_course_id = '".$fetch_survey_course['id']."' and student_id = '".$student_id."' and deletedAt is NULL";
                     $query_survey_score=mysqli_query($conn,$survey_score_sql);
                     $row_survey_score = $query_survey_score->num_rows;
-
-
                     $i++;
 
                     ?>
 
                     <tr>
                         <td class="text-center"><?php print $i?></td>
+                        <td class="text-center"><?php print $fetch_survey['topic'] ?></td>
                         <td class="text-center"><?php print $fetch_survey['teacher_name'] ?></td>
                         <td class="text-center">
                             <?php if($row_survey_score > 0) {

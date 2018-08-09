@@ -35,7 +35,7 @@ else {
 $course_name = null;
 $array_survey = array();
 $arrayUnique = array();
-$survey_sql="SELECT * FROM survey WHERE teacher_name like '%" . $teacher_name . "%' and semester = '".$semester."' and year = '".$year."' and  deletedAt is NULL";
+$survey_sql="SELECT * FROM survey WHERE teacher_name like '%" . $teacher_name . "%' and semester = '".$semester."' and year = '".$year."' and topic NOT LIKE '%[copy]%' and  deletedAt is NULL";
 $query_survey=mysqli_query($conn,$survey_sql);
 $i = 1;
 while($fetch_survey=mysqli_fetch_assoc($query_survey)){

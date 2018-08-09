@@ -92,7 +92,7 @@ $teacher_id = $_REQUEST['teacher_id'];
                  $i = 0;
                 while($fetch_check=mysqli_fetch_assoc($query_check)){
 
-                    $checkStart = substr($fetch_check['checkinDate'],'10','6');
+                    $checkStart = substr($fetch_check['checkinDate'],'11','9');
 
 
 

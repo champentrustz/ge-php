@@ -27,7 +27,7 @@ $course_name = null;
 $student_name = array();
 $student_last_name = array();
 $remarks = array();
-$survey_course_sql="SELECT distinct survey_id,name,id FROM survey_course WHERE course_id='GEL1102' and semester = '3' and year = '2560' and deletedAt is NULL";
+$survey_course_sql="SELECT distinct survey_id,name,id FROM survey_course WHERE course_id='".$course_id."' and semester = '".$semester."' and year = '".$year."' and deletedAt is NULL";
 $query_survey_course=mysqli_query($conn,$survey_course_sql);
 
 $sumN = 0;
@@ -632,9 +632,7 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                     <tbody>
 
                     <?php
-
-                    $comment_sql="SELECT * FROM survey_remark WHERE survey_course_id = '".$fetch_survey_course['id']."'";
-                    $query_comment=mysqli_query($conn,$comment_sql);
+                    
                     $num = 0;
                     foreach ($remarks as $remark){
 
@@ -643,7 +641,7 @@ while($fetch_survey_course = mysqli_fetch_assoc($query_survey_course)){
                         <tr>
                             <td class="text-center"><?php print $num?></td>
                             <td class="text-center"><?php print $remark['student_id']?></td>
-                            <td class="text-center"><?php print $remark['student_first_name']?> <?php print $fetch_comment['student_last_name']?></td>
+                            <td class="text-center"><?php print $remark['student_first_name']?> <?php print $remark['student_last_name']?></td>
                             <td class="text-center"><?php print $remark['remark']?></td>
                         </tr>
                         <?php

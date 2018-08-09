@@ -37,7 +37,7 @@ $survey_course_sql="SELECT distinct survey_id,name FROM survey_course WHERE cour
 $query_survey_course=mysqli_query($conn,$survey_course_sql);
 while($fetch_survey_course=mysqli_fetch_assoc($query_survey_course)){
     $course_name = $fetch_survey_course['name'];
-    $survey_sql = "SELECT * FROM survey WHERE id='" . $fetch_survey_course['survey_id'] . "' and semester = '" . $semester . "' and year = '" . $year . "' and  deletedAt is NULL";
+    $survey_sql = "SELECT * FROM survey WHERE id='" . $fetch_survey_course['survey_id'] . "' and semester = '" . $semester . "' and year = '" . $year . "' and topic NOT LIKE '%[copy]%'  and  deletedAt is NULL";
     $query_survey = mysqli_query($conn, $survey_sql);
     $i = 1;
     while ($fetch_survey = mysqli_fetch_assoc($query_survey)) {

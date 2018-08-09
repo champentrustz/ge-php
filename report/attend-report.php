@@ -207,9 +207,9 @@ $group_id = $_GET['group_id'];
 
             </div>
 
-        <button class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span> ส่งอีเมล</button>
-            <br/>
-            <br/>
+<!--        <button class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span> ส่งอีเมล</button>-->
+<!--            <br/>-->
+<!--            <br/>-->
             </form>
         </div>
 

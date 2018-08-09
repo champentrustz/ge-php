@@ -91,283 +91,289 @@ while($fetch_survey = mysqli_fetch_assoc($query_survey)){
 
 
 
-                <p class="text-center">
-                    <strong>แบบทดสอบ <?php print $survey_name?></strong>
-                </p>
-                <p class="text-center">
-                    <strong>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์</strong>
-                </p>
+<p class="text-center">
+    <strong><?php print $survey_name?></strong>
+</p>
+<p class="text-center">
+    <strong>ภาคเรียนที่ <?php print $semester?>/<?php print $year?></strong>
+</p>
+<p class="text-center">
+    <strong>สำนักวิชาการศึกษาทั่วไปและนวัตกรรมการเรียนรู้อิเล็กทรอนิกส์</strong>
+</p>
 
-                <br>
-
-
-                <table class="table table-bordered" cellspacing="0" style="font-size: 12px">
-                    <thead>
-
-                    <th class="text-center">หัวข้อ</th>
-                    <th class="text-center">x&#772;</th>
-                    <th class="text-center">S.D.</th>
-                    <th class="text-center">ร้อยละ</th>
-                    <th class="text-center">ระดับความพึงพอใจ</th>
-                    </thead>
-                    <tbody>
+<br>
 
 
+<table class="table table-bordered" cellspacing="0" style="font-size: 12px">
+    <thead>
+
+    <th class="text-center">หัวข้อ</th>
+    <th class="text-center">x&#772;</th>
+    <th class="text-center">S.D.</th>
+    <th class="text-center">ร้อยละ</th>
+    <th class="text-center">ระดับความพึงพอใจ</th>
+    </thead>
+    <tbody>
+
+
+    <?php
+
+    $percentTopicArray = array();
+
+
+    $test_sql="SELECT MIN(id) as id, topic_id FROM survey_question WHERE survey_id = '".$survey_id."' GROUP BY topic_id";
+    $query_test=mysqli_query($conn,$test_sql);
+    $avg = 0;
+    $i = 0;
+    while($fetch_test=mysqli_fetch_assoc($query_test)){
+
+        $survey_question_sql="SELECT * FROM survey_question WHERE survey_id = '".$survey_id."' AND topic_id = '".$fetch_test['topic_id']."'";
+        $query_survey_question=mysqli_query($conn,$survey_question_sql);
+        $j = 0;
+        $sumAvg = 0;
+        $sumSD = 0;
+        while($fetch_survey_question=mysqli_fetch_assoc($query_survey_question)){
+
+
+            ?>
+            <tr>
+                <?php
+                if($fetch_survey_question['type'] == "TOPIC" && $fetch_survey_question['question'] != ''){
+                    ?>
+                    <td colspan="6"><strong><?php print $fetch_survey_question['question']?></strong></td>
                     <?php
+                }
+                else{
 
-                    $percentTopicArray = array();
-
-
-                    $test_sql="SELECT MIN(id) as id, topic_id FROM survey_question WHERE survey_id = '".$survey_id."' GROUP BY topic_id";
-                    $query_test=mysqli_query($conn,$test_sql);
-                    $avg = 0;
-                    $i = 0;
-                    while($fetch_test=mysqli_fetch_assoc($query_test)){
-
-                        $survey_question_sql="SELECT * FROM survey_question WHERE survey_id = '".$survey_id."' AND topic_id = '".$fetch_test['topic_id']."' and question != ''";
-                        $query_survey_question=mysqli_query($conn,$survey_question_sql);
-                        $j = 0;
-                        $sumAvg = 0;
-                        $sumSD = 0;
-                        while($fetch_survey_question=mysqli_fetch_assoc($query_survey_question)){
+                    if($fetch_survey_question['question'] != ''){
 
 
-                            ?>
-                            <tr>
-                                <?php
-                                if($fetch_survey_question['type'] == "TOPIC" && $fetch_survey_question['question'] != ''){
-                                    ?>
-                                    <td colspan="6"><strong><?php print $fetch_survey_question['question']?></strong></td>
-                                    <?php
-                                }
-                                else{
+                        $avgX = $sumX[$i] / $n[$i];
+                        $avgX2digit = number_format((float)$avgX, 2, '.', '');
 
-                                    if($fetch_survey_question['question'] != ''){
+                        $sumAvg = $sumAvg + $avgX;
+                        $percent = ($avgX *100.00) / 5;
+                        $sumXiXbar = 0;
 
 
-                                        $avgX = $sumX[$i] / $n[$i];
+                        foreach ($x[$i] as $score){
 
-                                        $sumAvg = $sumAvg + $avgX;
-                                        $percent = ($avgX *100.00) / 5;
-                                        $sumXiXbar = 0;
+                            $sumXiXbar += pow($score - $avgX,2);
 
-
-                                        foreach ($x[$i] as $score){
-
-                                            $sumXiXbar += pow($score - $avgX,2);
-
-                                        }
-
-
-
-                                        $sd = $sumXiXbar / ($n[$i] - 1);
-                                        $sumSD += $sd;
-
-
-
-                                        ?>
-
-                                        <td><?php print $i+1?>. <?php print $fetch_survey_question['question']?></td>
-                                        <td class="text-center"><?php if(is_nan($avgX)){
-                                                print 0;
-                                            }
-                                            else{
-                                                print number_format((float)$avgX, 2, '.', '');
-                                            }
-
-                                            ?></td>
-                                        <td class="text-center"><?php if(is_nan($sd)){
-                                                print 0;
-                                            }
-                                            else{
-                                                print number_format((float)$sd, 2, '.', '');
-                                            }
-
-                                            ?></td>
-                                        <td class="text-center"><?php if(is_nan($percent)){
-                                                print 0;
-                                            }
-                                            else{
-                                                print number_format((float)$percent, 2, '.', '');
-                                            }
-
-                                            ?></td>
-                                        <td class="text-center"><?php
-                                            if($percent >= 80){
-                                                ?>
-                                                มากที่สุด
-
-                                                <?php
-                                            }
-                                            elseif($percent >=60 && $percent < 80){
-
-                                                ?>
-
-                                                มาก
-
-                                                <?php
-
-                                            }
-                                            elseif($percent >=40 && $percent < 60){
-
-                                                ?>
-
-                                                ปานกลาง
-                                                <?php
-
-                                            }
-                                            elseif($percent >=20 && $percent < 40){
-
-                                                ?>
-
-                                                น้อย
-                                                <?php
-
-                                            }
-                                            elseif($percent < 20){
-
-                                                ?>
-
-                                                น้อยที่สุด
-                                                <?php
-
-                                            }
-                                            else{
-
-                                                ?>
-
-                                                -
-                                                <?php
-
-                                            }
-
-                                            ?>
-                                        </td>
-                                        <?php
-
-                                        $i++;
-                                        $j++;
-
-                                    }
-                                }
-
-
-
-                                ?>
-                            </tr>
-
-
-                            <?php
                         }
 
-                        $avg = $sumAvg / $j;
 
-                        $percentTopic = ($avg * 100) / 5 ;
 
-                        $avgSD = $sumSD/$j;
-
-                        $percentTopicArray[] = $percentTopic;
-
+                        $sd = $sumXiXbar / ($n[$i] - 1);
+                        $sumSD += $sd;
 
 
 
                         ?>
 
-                        <tr>
-                            <td class="text-center"><strong>เฉลี่ย</strong></td>
-                            <td class="text-center"><?php if(is_nan($avg)){
-                                    print 0;
-                                }
-                                else{
-                                    print number_format((float)$avg, 2, '.', '');
-                                }
+                        <td><?php print $i+1?>. <?php print $fetch_survey_question['question']?></td>
+                        <td class="text-center"><?php if(is_nan($avgX)){
+                                print 0;
+                            }
+                            else{
+                                print number_format((float)$avgX, 2, '.', '');
+                            }
 
-                                ?></td>
-                            <td class="text-center"><?php if(is_nan($avgSD)){
-                                    print 0;
-                                }
-                                else{
-                                    print number_format((float)$avgSD, 2, '.', '');
-                                }
+                            ?></td>
+                        <td class="text-center"><?php if(is_nan($sd)){
+                                print 0;
+                            }
+                            else{
+                                print number_format((float)$sd, 2, '.', '');
+                            }
 
-                                ?></td>
-                            <td class="text-center"><?php if(is_nan($percentTopic)){
-                                    print 0;
-                                }
-                                else{
-                                    print number_format((float)$percentTopic, 2, '.', '');
-                                }
+                            ?></td>
+                        <td class="text-center"><?php if(is_nan($percent)){
+                                print 0;
+                            }
+                            else{
+                                print number_format((float)$percent, 2, '.', '');
+                            }
 
-                                ?></td>
-                            <td class="text-center"><?php
-                                if($percentTopic >= 80){
-                                    ?>
-                                    มากที่สุด
+                            ?></td>
+                        <td class="text-center"><?php
+                            if($avgX2digit >= 4.51){
+                                ?>
+                                มากที่สุด
 
-                                    <?php
-                                }
-                                elseif($percentTopic >=60 && $percentTopic < 80){
-
-                                    ?>
-
-                                    มาก
-
-                                    <?php
-
-                                }
-                                elseif($percentTopic >=40 && $percentTopic < 60){
-
-                                    ?>
-
-                                    ปานกลาง
-                                    <?php
-
-                                }
-                                elseif($percentTopic >=20 && $percentTopic < 40){
-
-                                    ?>
-
-                                    น้อย
-                                    <?php
-
-                                }
-                                elseif($percentTopic < 20){
-
-                                    ?>
-
-                                    น้อยที่สุด
-                                    <?php
-
-                                }
-                                else{
-
-                                    ?>
-
-                                    -
-                                    <?php
-
-                                }
+                                <?php
+                            }
+                            elseif($avgX2digit >=3.51 && $avgX2digit <= 4.50){
 
                                 ?>
-                            </td>
-                        </tr>
 
+                                มาก
+
+                                <?php
+
+                            }
+                            elseif($avgX2digit >=2.51 && $avgX2digit <= 3.50){
+
+                                ?>
+
+                                ปานกลาง
+                                <?php
+
+                            }
+                            elseif($avgX2digit >=1.51 && $avgX2digit <= 2.50){
+
+                                ?>
+
+                                น้อย
+                                <?php
+
+                            }
+                            elseif($avgX2digit >=1.00 && $avgX2digit <= 1.50){
+
+                                ?>
+
+                                ไม่มีความพึงพอใจ
+                                <?php
+
+                            }
+                            else{
+
+                                ?>
+
+                                -
+                                <?php
+
+                            }
+
+                            ?>
+                        </td>
                         <?php
 
+                        $i++;
+                        $j++;
 
                     }
+                }
 
 
+
+                ?>
+            </tr>
+
+
+            <?php
+        }
+
+        $avg = $sumAvg / $j;
+
+        $avg2digit = number_format((float)$avg, 2, '.', '');
+
+        $percentTopic = ($avg * 100) / 5 ;
+
+        $avgSD = $sumSD/$j;
+
+        $percentTopicArray[] = $percentTopic;
+
+
+
+
+        ?>
+
+        <tr>
+            <td class="text-center"><strong>เฉลี่ย</strong></td>
+            <td class="text-center"><?php if(is_nan($avg)){
+                    print 0;
+                }
+                else{
+                    print number_format((float)$avg, 2, '.', '');
+                }
+
+                ?></td>
+            <td class="text-center"><?php if(is_nan($avgSD)){
+                    print 0;
+                }
+                else{
+                    print number_format((float)$avgSD, 2, '.', '');
+                }
+
+                ?></td>
+            <td class="text-center"><?php if(is_nan($percentTopic)){
+                    print 0;
+                }
+                else{
+                    print number_format((float)$percentTopic, 2, '.', '');
+                }
+
+                ?></td>
+            <td class="text-center"><?php
+                if($avg2digit >= 4.51){
+                    ?>
+                    มากที่สุด
+
+                    <?php
+                }
+                elseif($avg2digit >=3.51 && $avg2digit <= 4.50){
 
                     ?>
 
+                    มาก
 
-                    </tbody>
+                    <?php
+
+                }
+                elseif($avg2digit >=2.51 && $avg2digit <= 3.50){
+
+                    ?>
+
+                    ปานกลาง
+                    <?php
+
+                }
+                elseif($avg2digit >=1.51 && $avg2digit <= 2.50){
+
+                    ?>
+
+                    น้อย
+                    <?php
+
+                }
+                elseif($avg2digit >=1.00 && $avg2digit <= 1.50){
+
+                    ?>
+
+                    ไม่มีความพึงพอใจ
+                    <?php
+
+                }
+                else{
+
+                    ?>
+
+                    -
+                    <?php
+
+                }
+
+                ?>
+            </td>
+        </tr>
+
+        <?php
+
+
+    }
+
+
+
+    ?>
+
+
+    </tbody>
 
 
 
 
-                </table>
+</table>
 
 
 
