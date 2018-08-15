@@ -80,7 +80,7 @@ while($fetch_survey = mysqli_fetch_assoc($query_survey)){
 
 }
 
-$nameExcel = $teacher_name.'-คะแนน-'.$survey_name.'-'.$semester.'-'.$year.'.xls';
+$nameExcel = '(สรุปแบบประเมินรายบุคคล)'.$teacher_name.'-คะแนน-'.$survey_name.'-'.$semester.'-'.$year.'.xls';
 header("Content-Disposition: attachment; filename=$nameExcel");
 header("Content-Type: application/xls");
 
