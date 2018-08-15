@@ -27,10 +27,6 @@ $student_name = array();
 $student_last_name = array();
 $remarks = array();
 
-$nameExcel = 'ข้อคิดเห็น-'.$survey_name.'-'.$semester.'-'.$year.'.xls';
-header("Content-Disposition: attachment; filename=$nameExcel");
-header("Content-Type: application/xls");
-
 
 $survey_sql="SELECT * FROM survey WHERE topic like '%" . $survey_name . "%' and semester = '" . $semester . "' and year = '" . $year . "' and  deletedAt is NULL";
 $query_survey=mysqli_query($conn,$survey_sql);
@@ -83,6 +79,12 @@ while($fetch_survey = mysqli_fetch_assoc($query_survey)){
 
 
 }
+
+
+$nameExcel = 'ข้อคิดเห็น-'.$survey_name.'-'.$semester.'-'.$year.'.xls';
+header("Content-Disposition: attachment; filename=$nameExcel");
+header("Content-Type: application/xls");
+
 ?>
 
 

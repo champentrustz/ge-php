@@ -28,8 +28,6 @@ $student_last_name = array();
 $remarks = array();
 
 
-
-
 $survey_sql="SELECT * FROM survey WHERE topic like '%" . $survey_name . "%' and semester = '" . $semester . "' and year = '" . $year . "' and  deletedAt is NULL";
 $query_survey=mysqli_query($conn,$survey_sql);
 $sumN = 0;

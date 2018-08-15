@@ -28,12 +28,8 @@ $remarks = array();
 $arrayScore = array();
 $course_name = null;
 
-$nameExcel = $teacher_name.'-คะแนน-'.$survey_name.'-'.$semester.'-'.$year.'.xls';
-header("Content-Disposition: attachment; filename=$nameExcel");
-header("Content-Type: application/xls");
 
-
-$survey_sql="SELECT * FROM survey WHERE topic = '" . $survey_name . "' and semester = '" . $semester . "' and year = '" . $year . "' and teacher_name = '".$teacher_name."' and  deletedAt is NULL";
+$survey_sql="SELECT * FROM survey WHERE topic like '%" . $survey_name . "%' and semester = '" . $semester . "' and year = '" . $year . "' and teacher_name like '%".$teacher_name."%' and  deletedAt is NULL";
 $query_survey=mysqli_query($conn,$survey_sql);
 $sumN = 0;
 
@@ -83,7 +79,9 @@ while($fetch_survey = mysqli_fetch_assoc($query_survey)){
     $sumN += $row_count;
 
 }
-
+$nameExcel = $teacher_name.'-คะแนน-'.$survey_name.'-'.$semester.'-'.$year.'.xls';
+header("Content-Disposition: attachment; filename=$nameExcel");
+header("Content-Type: application/xls");
 
 ?>
 
